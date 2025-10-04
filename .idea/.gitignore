@@ -1,6 +1,18 @@
 # Default ignored files
 /shelf/
 /workspace.xml
+# Java / Maven
+target/
+*.class
+*.jar
+*.war
+*.ear
+.idea/
+*.iml
+out/
+.DS_Store
+.env
+
 # Editor-based HTTP Client requests
 /httpRequests/
 # Datasource local storage ignored files
