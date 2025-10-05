@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: service-auth
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/fintech_auth
+    username: postgres
+    password: rizki
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+
+
+app:
+  jwt:
+    secret: "${JWT_SECRET:  secret-key: aee19b3f805e6cf87a186db77479e69621cfdb368545c91542896ef884e23b92}"
+    access-token-expiration-minutes: 15
+    issuer: rizkiselfproject
+
+
