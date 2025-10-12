@@ -1,0 +1,6 @@
+Maven dependency:
+<dependency>
+    <groupId>org.flywaydb</groupId>
+    <artifactId>flyway-core</artifactId>
+</dependency>
+

@@ -9,15 +9,19 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     properties:
       hibernate:
         format_sql: true
 
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
 
 app:
   jwt:
-    secret: "${JWT_SECRET:  secret-key: aee19b3f805e6cf87a186db77479e69621cfdb368545c91542896ef884e23b92}"
+    secret: ${JWT_SECRET:aee19b3f805e6cf87a186db77479e69621cfdb368545c91542896ef884e23b92}
     access-token-expiration-minutes: 15
     issuer: rizkiselfproject
 

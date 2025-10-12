@@ -7,6 +7,8 @@ public record RegisterRequest(
 
         String confirmPassword,
 
-        String email
+        String email,
+
+        Long roleId
 ) {
 }

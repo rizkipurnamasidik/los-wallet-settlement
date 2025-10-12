@@ -8,6 +8,7 @@ import org.rizki.fintech.service_auth.dto.RegisterRequest;
 import org.rizki.fintech.service_auth.dto.RegisterResponse;
 import org.rizki.fintech.service_auth.entity.Role;
 import org.rizki.fintech.service_auth.entity.User;
+import org.rizki.fintech.service_auth.repository.RoleRepository;
 import org.rizki.fintech.service_auth.repository.UserRepository;
 import org.rizki.fintech.service_auth.security.JwtTokenProvider;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,7 +16,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,6 +27,7 @@ public class AuthService {
     private final JwtConfigProps jwtConfigProps;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final RoleRepository roleRepository;
 
 
     public LoginResponse login(LoginRequest loginRequest) {
@@ -45,11 +46,14 @@ public class AuthService {
 
         //TODO: Validate
 
+        Role role = roleRepository.findByIdAndIsActiveIsTrue(request.roleId())
+                .orElseThrow(() -> new RuntimeException("Role not found"));
+
         User newUser = User.builder()
                 .username(request.username())
                 .password(passwordEncoder.encode(request.password()))
                 .email(request.email())
-                .roles(new ArrayList<>())
+                .roles(List.of(role))
                 .build();
 
         userRepository.save(newUser);
