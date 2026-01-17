@@ -1,0 +1,7 @@
+/data/postgres/
+data/*
+data/postgres/base/1/1247_vm
+data/postgres/base/1/1249_vm
+data/postgres/base/1/1255_vm
+data/postgres/base/1/1259_vm
+**/data/postgres/**
