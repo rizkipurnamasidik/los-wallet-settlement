@@ -1,10 +1,10 @@
 package org.rizki.fintech.service_auth.module.user.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.rizki.fintech.service_auth.module.user.dto.RegisterRequest;
-import org.rizki.fintech.service_auth.module.user.dto.RegisterResponse;
-import org.rizki.fintech.service_auth.module.user.dto.UserResponse;
-import org.rizki.fintech.service_auth.module.user.service.UserService;
+import org.rizki.fintech.service_auth.module.user.domain.dto.RegisterRequest;
+import org.rizki.fintech.service_auth.module.user.domain.dto.RegisterResponse;
+import org.rizki.fintech.service_auth.module.user.domain.dto.UserResponse;
+import org.rizki.fintech.service_auth.module.user.application.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

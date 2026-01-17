@@ -2,21 +2,14 @@ package org.rizki.fintech.service_auth.module.auth.service;
 
 import lombok.RequiredArgsConstructor;
 import org.rizki.fintech.service_auth.common.config.JwtConfigProps;
-import org.rizki.fintech.service_auth.module.auth.dto.AuthRole;
-import org.rizki.fintech.service_auth.module.auth.dto.AuthUser;
+import org.rizki.fintech.service_auth.core.security.jwt.JwtTokenProvider;
 import org.rizki.fintech.service_auth.module.auth.dto.LoginRequest;
 import org.rizki.fintech.service_auth.module.auth.dto.LoginResponse;
-import org.rizki.fintech.service_auth.module.user.adapter.UserAdapter;
-import org.rizki.fintech.service_auth.module.user.dto.RegisterRequest;
-import org.rizki.fintech.service_auth.module.user.dto.RegisterResponse;
-import org.rizki.fintech.service_auth.module.user.entity.Role;
-import org.rizki.fintech.service_auth.module.user.entity.User;
-import org.rizki.fintech.service_auth.module.user.repository.RoleRepository;
-import org.rizki.fintech.service_auth.module.user.repository.UserRepository;
-import org.rizki.fintech.service_auth.core.security.JwtTokenProvider;
+import org.rizki.fintech.service_auth.module.user.application.port.UserPort;
+import org.rizki.fintech.service_auth.module.user.domain.dto.RoleView;
+import org.rizki.fintech.service_auth.module.user.domain.dto.UserView;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,15 +22,15 @@ public class AuthService {
     private final JwtTokenProvider jwtTokenProvider;
     private final JwtConfigProps jwtConfigProps;
 
-    private final UserAdapter userAdapter;
+    private final UserPort userPort;
 
 
     public LoginResponse login(LoginRequest loginRequest) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password()));
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.identifier(), loginRequest.credential()));
 
-        AuthUser user = userAdapter.findByUsername(loginRequest.username()).orElseThrow();
+        UserView user = userPort.findByUsername(loginRequest.identifier()).orElseThrow();
 
-        List<String> roles = user.roles().stream().map(AuthRole::name).toList();
+        List<String> roles = user.roles().stream().map(RoleView::name).toList();
 
         String accessToken = jwtTokenProvider.createAccessToken(user.username(), roles, null);
 

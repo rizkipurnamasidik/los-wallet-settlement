@@ -1,8 +1,13 @@
 package org.rizki.fintech.service_auth.module.auth.dto;
 
-public record LoginRequest(
-        String username,
+import org.rizki.fintech.service_auth.common.constant.LoginMethod;
 
-        String password
+public record LoginRequest(
+
+        String identifier,
+
+        LoginMethod method,
+
+        String credential
 ) {
 }
